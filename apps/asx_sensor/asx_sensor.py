@@ -105,12 +105,12 @@ class Get_ASX_info(hass.Hass):
         self.set_state(self.up_sensor, state=date_time, replace=True, attributes= {"icon": self.up_mdi, "friendly_name": "ASX Data last sourced", "Companies": self.TICKER })
 
         #split the tickers into an array
-        ticks = self.TICKER.split(",").strip()
+        ticks = self.TICKER.split(",")
 
         for tick in ticks:
 
             #connect to the website and get the JSON dataset for that symbol
-            url = self.URLs + tick + self.s_price
+            url = self.URLs + tick.strip() + self.s_price
             response = requests.request("GET", url, headers=self.headers, data = self.payload)
         
             #convert output to JSON
