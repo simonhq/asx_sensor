@@ -1,5 +1,6 @@
 # Australian Securities Exchange Sensor
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
 
 _Creates sensors for Home Assistant for each ASX Symbol you provide_
 
