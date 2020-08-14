@@ -42,7 +42,7 @@ class Get_ASX_info(hass.Hass):
     c_fields = "?fields=primary_share,latest_annual_reports,last_dividend,primary_share.indices"
     c_similar = "/similar?compare=marketcap"
     c_announcements = "/announcements?count=10&market_sensitive=false"
-    c_dividends = "/dividends/history?years=5"
+    c_dividends = "/dividends/history?years=1"
     c_dividends_b = "/dividends"
     c_options = "/options?count=5000"
     c_warrants = "/warrants?count=5000"
