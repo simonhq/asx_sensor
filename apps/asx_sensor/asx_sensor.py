@@ -143,12 +143,12 @@ class Get_ASX_info(hass.Hass):
             jtags = json.loads(response.text)
 
             nam = jtags['name_short']
-            year_high = jtags['year_high_price']
-            year_h_date = jtags['year_high_date']
-            year_low = jtags['year_low_price']
-            year_l_date = jtags['year_low_date']
-            year_ch_perc = jtags['year_change_in_percentage']
-            susp = jtags['suspended']
+            year_high = jtags['primary_share']['year_high_price']
+            year_h_date = jtags['primary_share']['year_high_date']
+            year_low = jtags['primary_share']['year_low_price']
+            year_l_date = jtags['primary_share']['year_low_date']
+            year_ch_perc = jtags['primary_share']['year_change_in_percentage']
+            susp = jtags['primary_share']['suspended']
 
             self.set_state(self.asx_sensor + sym, state=str(c_price), replace=True, attributes= {"icon": self.tick_mdi, "friendly_name": nam, "close_date": str(c_date), "change_price": str(ch_price), "suspended": str(susp), "day_high": str(day_high), "day_low": str(day_low), "day_perc": str(ch_perc), "year_high": str(year_high), "year_high_date": str(year_h_date), "year_low": str(year_low), "year_low_date": str(year_l_date), "year_change_perc": str(year_ch_perc), "year_dividend": str(div_y), "amount_dividend": str(div_a) })
 
