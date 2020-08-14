@@ -22,6 +22,10 @@ The [ASX](https://www.asx.com.au/) site provides this information in JSON format
 
 As this is non time critical sensor, it only gets the information on a set time schedule, once per day at 7.27pm after the close of the market. 
 
+### To Run
+
+You will need to create an input_boolean entity to watch for when to update the sensor. When this `input_boolean` is turned on, whether manually or by another automation you create, the scraping process will be run to create/update the sensor.
+
 ## AppDaemon Libraries
 
 Please add the following packages to your appdaemon 4 configuration on the supervisor page of the add-on.
@@ -43,6 +47,7 @@ asx_sensor:
   module: asx_sensor
   class: Get_ASX_info
   TICKER: "CBA,TLS,BHP"
+  TICK_FLAG: "input_boolean.check_asx_info"
 ```
 
 key | optional | type | default | description
@@ -50,6 +55,7 @@ key | optional | type | default | description
 `module` | False | string | | `act_garbage`
 `class` | False | string | | `Get_ACT_Garbage`
 `TICKER` | False | string | | The comma separated symbols for each of the stocks you are interested in
+`TICK_FLAG` | False | string | | The name of the flag in HA for triggering this sensor update - e.g. input_boolean.check_asx_info
 
 ## Sensors Created
 
