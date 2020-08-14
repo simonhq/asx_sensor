@@ -21,6 +21,8 @@ Alternatively, you can download the `asx_sensor` directory from inside the `apps
 
 The [ASX](https://www.asx.com.au/) site provides this information in JSON format, this just makes the information available as sensors in HA.
 
+This information is only daily information, showing the latest close data, and other relevant information about a stock, it does not provide actual trading information.
+
 As this is non time critical sensor, it only gets the information on a set time schedule, once per day at 7.27pm after the close of the market. 
 
 ### To Run
