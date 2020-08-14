@@ -25,7 +25,7 @@ This information is only daily information, showing the latest close data, and o
 
 As this is non time critical sensor, it only gets the information on a set time schedule, once per day at 7.27pm after the close of the market. 
 
-### To Run
+### To Run Manually
 
 You will need to create an input_boolean entity to watch for when to update the sensor. When this `input_boolean` is turned on, whether manually or by another automation you create, the scraping process will be run to create/update the sensor.
 
