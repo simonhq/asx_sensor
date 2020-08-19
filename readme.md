@@ -55,8 +55,8 @@ asx_sensor:
 
 key | optional | type | default | description
 -- | -- | -- | -- | --
-`module` | False | string | | `act_garbage`
-`class` | False | string | | `Get_ACT_Garbage`
+`module` | False | string | | `asx_sensor`
+`class` | False | string | | `Get_ASX_info`
 `TICKER` | False | string | | The comma separated symbols for each of the stocks you are interested in
 `TICK_FLAG` | False | string | | The name of the flag in HA for triggering this sensor update - e.g. input_boolean.check_asx_info
 
