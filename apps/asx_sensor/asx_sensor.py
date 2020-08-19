@@ -152,9 +152,11 @@ class Get_ASX_info(hass.Hass):
             year_ch_perc = jtags['primary_share']['year_change_in_percentage']
             susp = jtags['primary_share']['suspended']
 
-            if ch_perc > 0:
+            diff = float(ch_price)
+
+            if diff > 0:
                 icon_mdi = self.tick_up_mdi
-            elif ch_perc < 0:
+            elif diff < 0:
                 icon_mdi = self.tick_down_mdi
             else:
                 icon_mdi = self.tick_mdi
