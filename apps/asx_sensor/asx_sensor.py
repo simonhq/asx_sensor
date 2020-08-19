@@ -48,8 +48,8 @@ class Get_ASX_info(hass.Hass):
     c_warrants = "/warrants?count=5000"
     c_people = "/people"
 
-    tick_up_mdi = "mdi:arrow-top-right-thick"
-    tick_down_mdi = "mdi:arrow-bottom-left-thick"
+    tick_up_mdi = "mdi:arrow-top-right"
+    tick_down_mdi = "mdi:arrow-bottom-left"
     tick_mdi = "mdi:progress-check"
     up_sensor = "sensor.asx_data_last_updated"
     asx_sensor = "sensor.asx_sensor_"
