@@ -48,6 +48,8 @@ class Get_ASX_info(hass.Hass):
     c_warrants = "/warrants?count=5000"
     c_people = "/people"
 
+    tick_up_mdi = "arrow-up-box"
+    tick_down_mdi = "arrow-down-box"
     tick_mdi = "mdi:progress-check"
     up_sensor = "sensor.asx_data_last_updated"
     asx_sensor = "sensor.asx_sensor_"
@@ -150,7 +152,14 @@ class Get_ASX_info(hass.Hass):
             year_ch_perc = jtags['primary_share']['year_change_in_percentage']
             susp = jtags['primary_share']['suspended']
 
-            self.set_state(self.asx_sensor + sym, state=str(c_price), replace=True, attributes= {"icon": self.tick_mdi, "friendly_name": nam, "close_date": str(c_date), "change_price": str(ch_price), "suspended": str(susp), "day_high": str(day_high), "day_low": str(day_low), "day_perc": str(ch_perc), "year_high": str(year_high), "year_high_date": str(year_h_date), "year_low": str(year_low), "year_low_date": str(year_l_date), "year_change_perc": str(year_ch_perc), "year_dividend": str(div_y), "amount_dividend": str(div_a) })
+            if ch_perc > 0:
+                icon_mdi = self.tick_up_mdi
+            elif ch_perc < 0:
+                icon_mdi = self.tick_down_mdi
+            else:
+                icon_mdi = self.tick_mdi
+
+            self.set_state(self.asx_sensor + sym, state=str(c_price), replace=True, attributes= {"icon": icon_mdi, "friendly_name": nam, "close_date": str(c_date), "change_price": str(ch_price), "suspended": str(susp), "day_high": str(day_high), "day_low": str(day_low), "day_perc": str(ch_perc), "year_high": str(year_high), "year_high_date": str(year_h_date), "year_low": str(year_low), "year_low_date": str(year_l_date), "year_change_perc": str(year_ch_perc), "year_dividend": str(div_y), "amount_dividend": str(div_a) })
 
             
         
