@@ -72,8 +72,8 @@ class Get_ASX_info(hass.Hass):
         # listen to HA for the flag to update the sensor
         self.listen_state(self.main, self.TICK_FLAG, new="on")
 
-        # set to run each morning at 7.27pm
-        runtime = datetime.time(17,27,0)
+        # set to run each morning at 5.17am
+        runtime = datetime.time(5,17,0)
         self.run_daily(self.daily_load, runtime)
 
     # run the app

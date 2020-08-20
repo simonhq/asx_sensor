@@ -23,7 +23,7 @@ The [ASX](https://www.asx.com.au/) site provides this information in JSON format
 
 This information is only daily information, showing the latest close data, and other relevant information about a stock, it does not provide actual trading information.
 
-As this is non time critical sensor, it only gets the information on a set time schedule, once per day at 7.27pm after the close of the market. 
+As this is non time critical sensor, it only gets the information on a set time schedule, once per day at 5.17am before the opening of the market. 
 
 ### To Run Manually
 
