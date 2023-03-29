@@ -111,52 +111,12 @@ class Get_ASX_info(hass.Hass):
 
         for tick in ticks:
 
-            #connect to the website and get the JSON dataset for that symbol
-            url = self.URLs + tick.strip() + self.s_price
-            response = requests.request("GET", url, headers=self.headers, data = self.payload)
-        
-            #convert output to JSON
-            jtags = json.loads(response.text)
+            url = self.URLs+tick.strip()
+            response = requests.request("GET", url, headers=self.headers, data=self.payload)
 
-            sym = jtags['data'][0]['code']
-            c_date = jtags['data'][0]['close_date']
-            c_price = jtags['data'][0]['close_price']
-            ch_price = jtags['data'][0]['change_price']
-            #volume = jtags['data'][0]['volume']
-            day_high = jtags['data'][0]['day_high_price']
-            day_low = jtags['data'][0]['day_low_price']
-            ch_perc =  jtags['data'][0]['change_in_percent']
+            sval = json.loads(response.text)
 
-            #connect to the website and get the JSON dataset for that symbol
-            url = self.URLc + tick + self.c_dividends
-            response = requests.request("GET", url, headers=self.headers, data = self.payload)
-        
-            #convert output to JSON
-            jtags = json.loads(response.text)
-
-            if jtags:
-                div_y = jtags[0]['year']
-                div_a = jtags[0]['amount']
-            else:
-                div_y = ""
-                div_a = ""
-
-            #connect to the website and get the JSON dataset for that symbol
-            url = self.URLc + tick + self.c_fields
-            response = requests.request("GET", url, headers=self.headers, data = self.payload)
-        
-            #convert output to JSON
-            jtags = json.loads(response.text)
-
-            nam = jtags['name_short']
-            year_high = jtags['primary_share']['year_high_price']
-            year_h_date = jtags['primary_share']['year_high_date']
-            year_low = jtags['primary_share']['year_low_price']
-            year_l_date = jtags['primary_share']['year_low_date']
-            year_ch_perc = jtags['primary_share']['year_change_in_percentage']
-            susp = jtags['primary_share']['suspended']
-
-            diff = float(ch_price)
+            diff = float(sval.get("change_price"))
 
             if diff > 0:
                 icon_mdi = self.tick_up_mdi
@@ -165,9 +125,15 @@ class Get_ASX_info(hass.Hass):
             else:
                 icon_mdi = self.tick_mdi
 
-            self.set_state(self.asx_sensor + sym, state=str(c_price), replace=True, attributes= {"icon": icon_mdi, "friendly_name": nam, "close_date": str(c_date), "change_price": str(ch_price), "suspended": str(susp), "day_high": str(day_high), "day_low": str(day_low), "day_perc": str(ch_perc), "year_high": str(year_high), "year_high_date": str(year_h_date), "year_low": str(year_low), "year_low_date": str(year_l_date), "year_change_perc": str(year_ch_perc), "year_dividend": str(div_y), "amount_dividend": str(div_a) })
+            #connect to the website and get the JSON dataset for that symbol
+            url = self.URLc + tick #+ self.c_fields
+            response = requests.request("GET", url, headers=self.headers, data=self.payload)
+            #convert output to JSON
+            jtags = json.loads(response.text)
+            nam = jtags.get('name_short')
+            self.log(nam)
+            if nam != None:
+                self.set_state(self.asx_sensor + tick.strip(), state=str(sval.get('last_price')), replace=True, attributes= {"icon": icon_mdi, "friendly_name": nam, "close_date": str(sval.get('last_trade_date')), "change_price": str(sval.get('change_price')), "suspended": str(sval.get('suspended')), "day_high": str(sval.get('day_high_price')), "day_low": str(sval.get('day_low_price')), "day_perc": str(sval.get('change_in_percent')), "year_high": str(sval.get('year_high_price')), "year_high_date": str(sval.get('year_high_date')), "year_low": str(sval.get('year_low_price')), "year_low_date": str(sval.get('year_low_date')), "year_change_perc": str(sval.get('year_change_price')), "annual_dividend_yield": str(sval.get('annual_dividend_yield')) })    
+            else:
+                self.set_state(self.asx_sensor + tick.strip(), state=str(sval.get('last_price')), replace=True, attributes= {"icon": icon_mdi, "friendly_name": sval.get('desc_full'), "close_date": str(sval.get('last_trade_date')), "change_price": str(sval.get('change_price')), "suspended": str(sval.get('suspended')), "day_high": str(sval.get('day_high_price')), "day_low": str(sval.get('day_low_price')), "day_perc": str(sval.get('change_in_percent')), "year_high": str(sval.get('year_high_price')), "year_high_date": str(sval.get('year_high_date')), "year_low": str(sval.get('year_low_price')), "year_low_date": str(sval.get('year_low_date')), "year_change_perc": str(sval.get('year_change_price')), "annual_dividend_yield": str(sval.get('annual_dividend_yield')) })
 
-            
-        
-
-#
