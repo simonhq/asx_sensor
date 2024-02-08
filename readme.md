@@ -1,9 +1,9 @@
 # Australian Securities Exchange Sensor
+
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge)](https://github.com/custom-components/hacs)
 
 _Creates sensors for Home Assistant for each ASX Symbol you provide_
-
 
 ## Lovelace Examples
 
@@ -19,11 +19,11 @@ Alternatively, you can download the `asx_sensor` directory from inside the `apps
 
 ## How it works
 
-The [ASX](https://www.asx.com.au/) site provides this information in JSON format, this just makes the information available as sensors in HA.
+The yfinance module sources the information from Yahoo Finance and makes the information available as sensors in HA.
 
 This information is only daily information, showing the latest close data, and other relevant information about a stock, it does not provide actual trading information.
 
-As this is non time critical sensor, it only gets the information on a set time schedule, once per day at 5.17am before the opening of the market. 
+As this is non time critical sensor, it only gets the information on a set time schedule, once per day at 5.17am before the opening of the market.
 
 ### To Run Manually
 
@@ -33,9 +33,9 @@ You will need to create an input_boolean entity to watch for when to update the 
 
 Please add the following packages to your appdaemon 4 configuration on the supervisor page of the add-on.
 
-``` yaml
+```yaml
 system_packages: []
-python_packages: []
+python_packages: ["yfinance"]
 init_commands: []
 ```
 
@@ -43,7 +43,7 @@ No specific packages are required for this app.
 
 ## App configuration
 
-In the apps.yaml file in the appdaemon/apps directory - 
+In the apps.yaml file in the appdaemon/apps directory -
 
 ```yaml
 asx_sensor:
@@ -53,18 +53,18 @@ asx_sensor:
   TICK_FLAG: "input_boolean.check_asx_info"
 ```
 
-key | optional | type | default | description
--- | -- | -- | -- | --
-`module` | False | string | | `asx_sensor`
-`class` | False | string | | `Get_ASX_info`
-`TICKER` | False | string | | The comma separated symbols for each of the stocks you are interested in
-`TICK_FLAG` | False | string | | The name of the flag in HA for triggering this sensor update - e.g. input_boolean.check_asx_info
+| key         | optional | type   | default | description                                                                                      |
+| ----------- | -------- | ------ | ------- | ------------------------------------------------------------------------------------------------ |
+| `module`    | False    | string |         | `asx_sensor`                                                                                     |
+| `class`     | False    | string |         | `Get_ASX_info`                                                                                   |
+| `TICKER`    | False    | string |         | The comma separated symbols for each of the stocks you are interested in                         |
+| `TICK_FLAG` | False    | string |         | The name of the flag in HA for triggering this sensor update - e.g. input_boolean.check_asx_info |
 
 ## Sensors Created
 
 This version will create a sensor for each stock you provide
 
-* sensor.asx_sensor_XXX
+- sensor.asx_sensor_XXX
 
 ## Issues/Feature Requests
 
